@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		464E4CE22C92D99200656913 /* CustomPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464E4CE12C92D99200656913 /* CustomPlayer.swift */; };
+		464E4CE42C92DF1100656913 /* LargoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464E4CE32C92DF1100656913 /* LargoPlayer.swift */; };
 		467C4B472C92129A00463444 /* LargoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467C4B462C92129A00463444 /* LargoApp.swift */; };
-		467C4B492C92129A00463444 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467C4B482C92129A00463444 /* ContentView.swift */; };
+		467C4B492C92129A00463444 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467C4B482C92129A00463444 /* AudioPlayerView.swift */; };
 		467C4B4B2C92129B00463444 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 467C4B4A2C92129B00463444 /* Assets.xcassets */; };
 		467C4B4E2C92129B00463444 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 467C4B4D2C92129B00463444 /* Preview Assets.xcassets */; };
 		467C4B582C92129B00463444 /* LargoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467C4B572C92129B00463444 /* LargoTests.swift */; };
 		467C4B622C92129B00463444 /* LargoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467C4B612C92129B00463444 /* LargoUITests.swift */; };
 		467C4B642C92129B00463444 /* LargoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467C4B632C92129B00463444 /* LargoUITestsLaunchTests.swift */; };
+		467D469B2C9217B40020B585 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 467D46992C9217B40020B585 /* LICENSE */; };
+		467D469C2C9217B40020B585 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 467D469A2C9217B40020B585 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +38,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		464E4CE12C92D99200656913 /* CustomPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPlayer.swift; sourceTree = "<group>"; };
+		464E4CE32C92DF1100656913 /* LargoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargoPlayer.swift; sourceTree = "<group>"; };
 		467C4B432C92129A00463444 /* Largo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Largo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		467C4B462C92129A00463444 /* LargoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargoApp.swift; sourceTree = "<group>"; };
-		467C4B482C92129A00463444 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		467C4B482C92129A00463444 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		467C4B4A2C92129B00463444 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		467C4B4D2C92129B00463444 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		467C4B532C92129B00463444 /* LargoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LargoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +50,8 @@
 		467C4B5D2C92129B00463444 /* LargoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LargoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		467C4B612C92129B00463444 /* LargoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargoUITests.swift; sourceTree = "<group>"; };
 		467C4B632C92129B00463444 /* LargoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		467D46992C9217B40020B585 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		467D469A2C9217B40020B585 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +82,8 @@
 		467C4B3A2C92129A00463444 = {
 			isa = PBXGroup;
 			children = (
+				467D46992C9217B40020B585 /* LICENSE */,
+				467D469A2C9217B40020B585 /* README.md */,
 				467C4B452C92129A00463444 /* Largo */,
 				467C4B562C92129B00463444 /* LargoTests */,
 				467C4B602C92129B00463444 /* LargoUITests */,
@@ -95,9 +105,11 @@
 			isa = PBXGroup;
 			children = (
 				467C4B462C92129A00463444 /* LargoApp.swift */,
-				467C4B482C92129A00463444 /* ContentView.swift */,
+				467C4B482C92129A00463444 /* AudioPlayerView.swift */,
 				467C4B4A2C92129B00463444 /* Assets.xcassets */,
 				467C4B4C2C92129B00463444 /* Preview Content */,
+				464E4CE12C92D99200656913 /* CustomPlayer.swift */,
+				464E4CE32C92DF1100656913 /* LargoPlayer.swift */,
 			);
 			path = Largo;
 			sourceTree = "<group>";
@@ -231,7 +243,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				467D469B2C9217B40020B585 /* LICENSE in Resources */,
 				467C4B4E2C92129B00463444 /* Preview Assets.xcassets in Resources */,
+				467D469C2C9217B40020B585 /* README.md in Resources */,
 				467C4B4B2C92129B00463444 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,8 +271,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				467C4B492C92129A00463444 /* ContentView.swift in Sources */,
+				467C4B492C92129A00463444 /* AudioPlayerView.swift in Sources */,
 				467C4B472C92129A00463444 /* LargoApp.swift in Sources */,
+				464E4CE42C92DF1100656913 /* LargoPlayer.swift in Sources */,
+				464E4CE22C92D99200656913 /* CustomPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

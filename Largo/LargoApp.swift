@@ -51,6 +51,16 @@ struct LargoApp: App {
         CommandGroup(replacing: .newItem) {
             Button("Open…") { player.isImporterPresented = true }
                 .keyboardShortcut("o")
+            Menu("Open Recent") {
+                ForEach(player.recentSongs) { song in
+                    Button(song.artist.map { "\(song.title) – \($0)" } ?? song.title) {
+                        player.openRecentSong(song.id)
+                    }
+                }
+                if !player.recentSongs.isEmpty { Divider() }
+                Button("Clear Menu") { player.clearRecentSongs() }
+                    .disabled(player.recentSongs.isEmpty)
+            }
         }
         CommandMenu("Playback") {
             Button(player.isPlaying ? "Pause" : "Play") { player.togglePlay() }

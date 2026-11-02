@@ -13,6 +13,13 @@ import UIKit
 /// playhead position stays correct at any playback rate.
 @MainActor
 final class AudioPlayer: ObservableObject {
+    /// A song in the "Open Recent" menu.
+    struct RecentSong: Identifiable {
+        let id: String
+        let title: String
+        let artist: String?
+    }
+
     // MARK: Published state
     @Published private(set) var fileURL: URL?
     @Published private(set) var duration: Double = 0
@@ -57,6 +64,8 @@ final class AudioPlayer: ObservableObject {
     @Published var loopStart: Double?
     @Published var loopEnd: Double?
     @Published var loopEnabled = false { didSet { if oldValue != loopEnabled { reschedule() } } }
+    /// Recently opened songs for the "Open Recent" menu, newest first.
+    @Published private(set) var recentSongs: [RecentSong] = []
 
     var hasValidLoop: Bool {
         guard let a = loopStart, let b = loopEnd else { return false }
@@ -98,6 +107,7 @@ final class AudioPlayer: ObservableObject {
         autosave = objectWillChange
             .throttle(for: .seconds(2), scheduler: RunLoop.main, latest: true)
             .sink { [weak self] _ in self?.saveSongSettings() }
+        refreshRecentSongs()
     }
 
     // MARK: Audio system events
@@ -299,6 +309,8 @@ final class AudioPlayer: ObservableObject {
         songSettings = settings
         songID = id
         SongLibrary.lastSongID = id
+        SongLibrary.noteRecent(id)
+        refreshRecentSongs()
         loadWaveformAndAnalysis(url: url, id: id)
     }
 
@@ -587,6 +599,43 @@ final class AudioPlayer: ObservableObject {
 
     private func applyPitch() {
         timePitch.pitch = Float(semitones * 100 + cents)
+    }
+
+    // MARK: Recent songs
+
+    /// Rebuilds the "Open Recent" menu from the stored list of song IDs (newest first).
+    /// Call it whenever that list changes.
+    func refreshRecentSongs() {
+        // compactMap: turn each ID into a RecentSong, and drop IDs whose
+        // settings file no longer exists (map would keep them as nil).
+        recentSongs = SongLibrary.recentSongIDs.compactMap { id in
+            // settings(for:) returns nil for unknown songs; .map only runs the closure
+            // if there are settings, and passes them in as $0.
+            SongLibrary.settings(for: id).map { RecentSong(id: id, title: $0.title, artist: $0.artist) }
+        }
+    }
+
+    /// Opens a song from the "Open Recent" menu, with its saved speed, key, loop and position.
+    func openRecentSong(_ id: String) {
+        // The song's settings say where its audio is (iPhone/iPad: copy, Mac: bookmark).
+        guard let saved = SongLibrary.settings(for: id) else { return }
+        // nil means the file is gone (deleted, or moved to another disk on the Mac).
+        // Unlike at launch, the user picked this song, so tell them why nothing happens.
+        guard let url = SongLibrary.audioURL(of: saved) else {
+            errorMessage = "“\(saved.title)” can't be found. It may have been moved or deleted."
+            return
+        }
+        // librarySong: reuse the saved title/artist, so the song keeps the same ID
+        // and its settings (load re-identifies the song from these).
+        load(url: url, librarySong: saved)
+    }
+
+    /// Empties the "Open Recent" menu. The songs' settings stay in the library, so
+    /// opening one of them again still restores its loops and speed.
+    func clearRecentSongs() {
+        SongLibrary.recentSongIDs = []
+        // Publish the empty list so the menu updates right away.
+        refreshRecentSongs()
     }
 }
 

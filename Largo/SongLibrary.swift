@@ -173,6 +173,21 @@ enum SongLibrary {
         }
     }
 
+    // MARK: Recent songs
+
+    static let maxRecentSongs = 10
+
+    /// IDs of recently opened songs, newest first.
+    static var recentSongIDs: [String] {
+        get { UserDefaults.standard.stringArray(forKey: "recentSongIDs") ?? [] }
+        set { UserDefaults.standard.set(Array(newValue.prefix(maxRecentSongs)), forKey: "recentSongIDs") }
+    }
+
+    /// Moves a song to the top of the list (or adds it).
+    static func noteRecent(_ id: String) {
+        recentSongIDs = [id] + recentSongIDs.filter { $0 != id }
+    }
+
     /// The song that was open last, reopened at launch.
     static var lastSongID: String? {
         get { UserDefaults.standard.string(forKey: "lastSongID") }

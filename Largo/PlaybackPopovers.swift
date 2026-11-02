@@ -69,13 +69,10 @@ struct CoverArt: View {
         RoundedRectangle(cornerRadius: size / 7)
             .fill(Color.secondary.opacity(0.15))
             .overlay {
-                if let image {
-                    image.resizable().scaledToFill()
-                } else {
-                    Image(systemName: "music.note")
-                        .font(.system(size: size * 0.4))
-                        .foregroundStyle(.secondary)
-                }
+                // The song's own cover, or the app icon when the file has none.
+                (image ?? Image(.defaultCover))
+                    .resizable()
+                    .scaledToFill()
             }
             .frame(width: size, height: size)
             .clipShape(RoundedRectangle(cornerRadius: size / 7))

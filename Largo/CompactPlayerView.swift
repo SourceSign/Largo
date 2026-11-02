@@ -109,12 +109,22 @@ struct CompactPlayerView: View {
 /// Apps can't set the system volume any other way; it also offers the AirPlay route button.
 struct SystemVolumeSlider: UIViewRepresentable {
     func makeUIView(context: Context) -> MPVolumeView {
-        let view = MPVolumeView(frame: .zero)
+        let view = CenteredVolumeView(frame: .zero)
         view.tintColor = .label // filled part in the same color as the controls
         return view
     }
 
     func updateUIView(_ view: MPVolumeView, context: Context) {}
+}
+
+/// MPVolumeView doesn't center its slider vertically in the space it's given, so the track sat
+/// off-center next to the speaker icons. This puts the slider in the vertical middle.
+private final class CenteredVolumeView: MPVolumeView {
+    override func volumeSliderRect(forBounds bounds: CGRect) -> CGRect {
+        var rect = super.volumeSliderRect(forBounds: bounds)
+        rect.origin.y = bounds.midY - rect.height / 2
+        return rect
+    }
 }
 
 #if DEBUG

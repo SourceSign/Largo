@@ -77,9 +77,13 @@ enum SongLibrary {
     /// doesn't last. The Mac keeps a bookmark to the original file instead of a copy.
     static func rememberAudio(at url: URL, id: String, in settings: inout SongSettings) {
         #if os(macOS)
-        if let bookmark = try? url.bookmarkData(options: .withSecurityScope,
-                                                includingResourceValuesForKeys: nil, relativeTo: nil) {
-            settings.bookmark = bookmark
+        // Largo only has read access to user-selected files, and a security-scoped bookmark
+        // can't promise more than that: without .securityScopeAllowOnlyReadAccess, creating it fails.
+        do {
+            settings.bookmark = try url.bookmarkData(options: [.withSecurityScope, .securityScopeAllowOnlyReadAccess],
+                                                     includingResourceValuesForKeys: nil, relativeTo: nil)
+        } catch {
+            print("Could not create a bookmark for \(url.lastPathComponent): \(error)")
         }
         #else
         settings.audioFile = importAudio(from: url, id: id)
